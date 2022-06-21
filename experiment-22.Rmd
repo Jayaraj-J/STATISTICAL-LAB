@@ -1,0 +1,68 @@
+---
+title: 'EXPERIMENT 22: Perform paired t-test in R'
+author: "jayaraj.inmca2025@saintgits.org"
+date: '2022-06-06'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aim
+
+1.  To perform the paired t-test in R.
+
+## Packages used and syntax of R methods
+
+A paired samples t-test is a statistical test that compares the mean of two samples when each observation in one sample can be paired with an observation in the other sample. To conduct a paired t-test in R, we can use the built-in t-test() function with the following syntax:
+
+> Suntax: t.test(x,y,paired = TRUE,alternative = "two.sided")
+
+## Algorithm
+
+-   STEP 1: Assign the inputs and formulate the hypothesis.
+
+-   STEP 2: Write the paired t-test commands in the code chunk.
+
+-   STEP 3: Report the result.
+
+-   STEP 4: Interpret the result and write the conclusion.
+
+*Case:* Suppose we want to know whether a certain study program significantly impacts student.
+performance on a particular exam. To test this, we have 20 students in a class take a pre-test. Then, we have each of the students participate in the study program each day for two weeks. Then, the students retake a test of similar difficulty. Pre-test: 85, 85, 78, 78, 92, 94, 91, 85, 72, 97, 84, 95, 99, 80, 90, 88, 95, 90, 96, 89. Post test: 84, 88, 88, 90, 92, 93, 91, 85, 80, 93, 97, 100, 93, 91, 90, 87, 94, 83, 92, 95. Find out if there is a significant difference in the mean scores between a pre-test and a post-test for 20 students. Test the hypothesis at 5% significance level.
+
+## Hypothesis
+
+The hypothesis based on information in the case are:
+
+> H~O~: $\mu1=\mu2$ H~1~: $\mu1\neq\mu2$ (two tailed test)
+
+## R code
+
+### Reading the data
+
+```{r}
+#enter pre and post test score for 20 students.
+Pretest = c(85, 85, 78, 78, 92, 94, 91, 85, 72, 97, 84, 95, 99, 80, 90, 88, 95, 90, 96, 89)
+
+Posttest = c(84, 88, 88, 90, 92, 93, 91, 85, 80, 93, 97, 100, 93, 91, 90, 87, 94, 83, 92, 95)
+```
+
+### Apply the two mean test
+```{r}
+#perform paired t-test
+respt=t.test(`x`=Pretest, `y`=Posttest, `paired` = TRUE)
+```
+
+### The test result
+
+```{r}
+# call the test result
+respt
+```
+
+## Results & discussions
+
+Thus, since our p-value is greater than one significance level of 0.05 we will fail to reject the null hypothesis that the two groups have significantly significant means. In other words, we do not have sufficient evidence to say that the mean scores between the pre and post groups are statistically significantly different. This means the study program had no significant effect on test scores.
+

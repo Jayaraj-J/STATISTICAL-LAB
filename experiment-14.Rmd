@@ -1,0 +1,59 @@
+---
+title: 'EXPERIMENT 14: CPNTRUCT A SCATTERPLOT TO INVESTIGATE BETWEEN TWO VARIABLES'
+author: "jayaraj.inmca2025@saintgits.org"
+date: '2022-05-23'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## AIM
+
+1. To investigate between two given variables.
+
+## PACKAGES USED AND SYNTAX OF R METHODS
+
+Functions from stats package (which is loaded by default). For plotting the scatter points,the geom_point() function from ggplot2 package and cor.test() function from stats packages are used.
+
+## ALGORITHM
+
+**STEP 1:** Assign the inputs for required comparison.
+
+**STEP 2:** Create scatter plot using plot() function in R.
+
+**STEP 3:** Report the observations.
+
+**STEP 4:** Confirm the observations using correlation analysis.
+
+case: Identify the relationship between sales units based on advertising budget spent on youtube. The sales data with corresponding expenditure in youtube is shown below:
+ 
+\begin{array}{|l|l|l|l|l|l|l|l|}
+\hline
+SALES(Y):             & 2 & 4 & 6 & 9 & 12 & 34 & 45 \\ \hline
+ADD EXPENSE(YOUTUBE): & 1 & 2 & 4 & 7 & 9  & 11 & 15 \\ \hline
+\end{array}
+
+## R CODE
+
+#create input parameters
+```{r}
+marketing= data.frame(sales=c(2,4,6,9,12,34,45),youtube=c(1,2,4,7,9,11,15)) 
+```
+##plotting the data as d scatter diagram
+
+```{r}
+library(ggplot2)
+ggplot(marketing,aes( x = youtube, y = sales))+
+  geom_point()+
+  stat_smooth()
+```
+
+## checking association
+```{r}
+cor.test(marketing$sales,marketing$youtube)
+```
+##RESULTS AND DISCUSSIONS
+
+The given variables are plotted using ggplot2 package. From the plot it is clear that there is a linear relationship between the variables. The correlation coefficient is 0.9267856. So the linear association is highly significant at 5% significance level.  

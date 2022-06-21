@@ -1,0 +1,73 @@
+---
+title: 'Experiment 25: Chi-Square test for goodness of fit'
+author: "jayaraj.inmca2025@saintgits.org"
+date: '2022-06-09'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aim
+
+1. To perform $\chi^2$ test for goodness of fit in R.
+
+## Packages used and syntax of R methods
+
+Functions from stats package (which is loaded by default).
+
+A Chi-Square Goodness of Fit Test is used to determine whether or not a categorical variable follows a hypothesized distribution. we can perform the Chi-Square Goodness of Fit Test using the chisq.test() function, which uses the following syntax:
+
+>Syntax: chisq.test(x, p)
+
+where:
+ • x: A numerical vector of observed frequencies.
+ • p: A numerical vector of expected proportions.
+ 
+## Algorithm
+
+* Step 1: Assign the inputs for required regression model.
+
+* Step 2: Apply the $\chi^2$ test on the given dataset.
+
+* Step 3: Report the summary coefficients.
+
+* Step 4: Interpret the model summary.
+
+Case: A shop owner claims that an equal number of customers come into his shop each weekday. To test this hypothesis, a researcher records the number of customers that come into the shop in a given week and finds the following:
+
+Monday: 50 customers Tuesday: 60 customers Wednesday: 40 customers Thursday: 47 customers Friday: 53 customers
+
+## Hypothesis:
+
+The hypothesis for $\chi^2$ test are:
+
+H~0~ : (null hypothesis) A variable follows a hypothesized distribution.
+H~1~ : (alternative hypothesis) A variable does not follow a hypothesized distribution.
+
+## R code
+
+```{r}
+#create input variables and expected proportions
+observed <- c(50, 60, 40, 47, 53)
+expected <- c(.2, .2, .2, .2, .2) #must add up to 1
+```
+
+### Checking independence
+
+perform the Chi-Square Test of Independence using the chisq.test() function:
+```{r}
+#perform Chi-Square Goodness of Fit Test
+reschgf=chisq.test(x=observed, p=expected)
+```
+
+### Model summary
+
+```{r}
+reschgf
+```
+
+## Results & discussions
+
+Since the p-value (.35947) is not less than 0.05, we fail to reject the null hypothesis. This means we do not have sufficient evidence to say that the true distribution of customers is different from the distribution that the shop owner claimed.

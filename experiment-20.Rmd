@@ -1,0 +1,57 @@
+---
+title: 'EXPERIMENT 20: ONE SAMPLE t-test.'
+author: "jayaraj.inmca2025@saintgits.org"
+date: '2022-06-03'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## AIM
+
+1.  To implement one sample t-test in R.
+
+## PACKAGES USED AND SYNTAX OF R METHODS
+
+To perform one-sample t-test, the R function t.test() can be used as follow:
+
+> Syntax: 't.test(x, mu=0,alternative=c("greater,""less,""two.sided")'
+
+## ALGORITHM
+
+**Step 1:** Assign the inputs.
+
+**Step 2:** Apply t-test.
+
+**Step 3:** Interpret the result.
+
+*case:* Weight of 10 mice to test whether the average weight of the mice population is 25g or not.
+
+\begin{array}{|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+Sample no:  & 1    & 2    & 3    & 4    & 5    & 6    & 7    & 8    & 9    & 10  \\ \hline
+Weight (g): & 17.6 & 20.6 & 22.2 & 15.3 & 20.9 & 21.0 & 18.9 & 18.9 & 18.9 & 18.2 \\ \hline
+\end{array}
+
+## R CODE
+
+```{r}
+#loading data
+w=c(17.6,20.6,22.2,15.3,20.9,21.0,18.9,18.9,18.9,18.2)
+
+```
+
+## APPLY ONE SAMPLE t test
+
+```{r}
+# One-sample t-test
+rest1<- t.test(w, mu = 25)
+# Printing the results
+rest1
+```
+
+## RESULTS AND DISCUSSIONS
+
+The p-value of the test is 0.0005073 , which is less than the significance level alpha = 0.05. We can conclude that the mean weight of the mice is significantly different from 25g with a p-value = 0.0005073

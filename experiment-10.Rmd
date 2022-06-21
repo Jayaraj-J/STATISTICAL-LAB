@@ -1,0 +1,105 @@
+---
+title: "Experiment 10: Correlation analysis- Karl-Pearson Coefficient of Correlation"
+author: "siju.swamy@saintgits.org"
+date: "4/23/2022"
+output:  html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aim
+
+1. To find the correlation coefficient of the given bivariate data
+
+## Packages used and syntax of R methods
+
+Functions from `stat` package (which is loaded by default). 
+
+**Pearson correlation (r)**, which measures a linear dependence between two variables (x and y). It’s also known as a parametric correlation test because it depends to the distribution of the data. It can be used only when x and y are from normal distribution. The plot of $y = f(x)$ is named the linear regression curve. The Pearson correlation formula is:
+$$r = \frac{\sum{(x-m_x)(y-m_y)}}{\sqrt{\sum{(x-m_x)^2}\sum{(y-m_y)^2}}}$$ 
+
+where $m_x$ and $m_y$ are means of the distributions x and y respectively.
+
+Correlation coefficient can be computed using the functions `cor()` or `cor.test()`:
+
+**Syntax:**
+
+> `cor(x, y, method = c("pearson", "kendall", "spearman"))`
+ `cor.test(x, y, method=c("pearson", "kendall", "spearman"))`
+
+>Note: If the data contain missing values, use the following R code to handle missing values by case-wise deletion.
+
+`cor(x, y,  method = "pearson", use = "complete.obs")`
+
+## Algorithm
+
+* Step 1: Assign the inputs for required correlation model
+
+* Step 2: Calculate the correlation coefficient
+
+* Step 3: Verify the result using direct calculation
+
+* Step 4: Interpret the result
+
+
+>*Case:*  From the following data, compute Karl Pearson's coefficient of correlation.
+
+$\begin{array}{|l|ccccccc|}\hline
+\text{Price(Rupees)}:& 10& 20& 30& 40& 50& 60& 70\\\hline
+\text{Supply(Units)}:& 8& 6& 14& 16& 10& 20& 24\\\hline
+\end{array}$
+
+
+## R code
+
+```{r}
+# loading data
+price=c(10,20,30,40,50,60,70)
+supply=c(8,6,14,16,10,20,24)
+```
+
+
+
+### Calculating correlation coefficient
+
+```{r}
+resp1=cor.test(price,supply,method='pearson')
+resp1
+```
+
+### Direct calculation
+
+Formula is: $$r = \frac{\sum{(x-m_x)(y-m_y)}}{\sqrt{\sum{(x-m_x)^2}\sum{(y-m_y)^2}}}$$ 
+
+```{r}
+#direct calculation
+rho=(sum(((price-mean(price))*(supply-mean(supply)))))/(sqrt(sum((price-mean(price))^2)*(sum((supply-mean(supply))^2))))
+rho
+```
+
+### Plotting the variables
+```{r}
+my_data=data.frame(price=price,supply=supply)
+head(my_data)
+```
+
+
+
+```{r Scattercor, fig.cap='Scatter plot with smooth fit curve', out.width='80%', fig.asp=.75, fig.align='center',warning=FALSE}
+
+library(ggpubr)
+ggscatter(my_data, x = "price", y = "supply", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "Price", ylab = "Supply")
+```
+
+
+
+## Results & discussions
+
+Correlation coefficient of given bivariate data is calculated using built-in function in `stats` package. The result is verified using direct calculation.
+
+Since the Pearson coefficient is `r resp1$estimate`. Also p-value is `r resp1$p.value ` <0.05. So the null hypothesis is accepted. So it is statistically reasonable to conclude that there is a significant positive correlation between the price and supply based on the sample.

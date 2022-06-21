@@ -1,0 +1,103 @@
+---
+title: "experiment-11"
+author: "jayu1294@gmail.com"
+date: '2022-05-06'
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Aim
+
+1. To find the correlation coefficient of the given bivariate data
+
+## Packages used and syntax of R methods
+
+Functions from `stat` package (which is loaded by default). 
+
+**Pearson correlation (r)**, which measures a linear dependence between two variables (x and y). It’s also known as a parametric correlation test because it depends to the distribution of the data. It can be used only when x and y are from normal distribution. The plot of $y = f(x)$ is named the linear regression curve. The Pearson correlation formula is:
+$$r = \frac{\sum{(x-m_x)(y-m_y)}}{\sqrt{\sum{(x-m_x)^2}\sum{(y-m_y)^2}}}$$ 
+
+where $m_x$ and $m_y$ are means of the distributions x and y respectively.
+
+Correlation coefficient can be computed using the functions `cor()` or `cor.test()`:
+
+**Syntax:**
+
+> `cor(x, y, method = c("pearson", "kendall", "spearman"))`
+ `cor.test(x, y, method=c("pearson", "kendall", "spearman"))`
+
+>Note: If the data contain missing values, use the following R code to handle missing values by case-wise deletion.
+
+`cor(x, y,  method = "pearson", use = "complete.obs")`
+
+## Algorithm
+
+* Step 1: Assign the inputs for required correlation model
+
+* Step 2: Calculate the correlation coefficient
+
+* Step 3: Verify the result using direct calculation
+
+* Step 4: Interpret the result
+
+
+>*Case:*  From the following data compute correlation between height of father and height of daughters by Karl Pearson's coefficient of correlation.
+
+$\begin{array}{|l|cccccccc|}\hline
+\text{Height of Father(Cms)}& 65& 66& 67& 67& 68& 69& 71& 73\\
+\text{Height of Daughter(Cms)}& 67& 68& 64& 69& 72& 70& 69& 73\\\hline
+\end{array}$
+
+
+## R code
+
+```{r}
+# loading data
+height_F=c(65,66,67,67,68,69,71,73)
+height_D=c(67,68,64,69,72,70,69,73)
+```
+
+
+
+### Calculating correlation coefficient
+
+```{r}
+resp2=cor.test(height_F,height_D,method='pearson')
+resp2
+```
+
+### Direct calculation
+
+Formula is: $$r = \frac{\sum{(x-m_x)(y-m_y)}}{\sqrt{\sum{(x-m_x)^2}\sum{(y-m_y)^2}}}$$ 
+
+```{r}
+#direct calculation
+rho=(sum(((height_F-mean(height_F))*(height_D-mean(height_D)))))/(sqrt(sum((height_F-mean(height_F))^2)*(sum((height_D-mean(height_D))^2))))
+rho
+```
+
+### Plotting the variables
+```{r}
+my_data=data.frame(height_F=height_F,height_D=height_D)
+head(my_data)
+```
+
+
+
+```{r Scattercor, fig.cap='Scatter plot with smooth fit curve', out.width='80%', fig.asp=.75, fig.align='center',warning=FALSE}
+
+library(ggpubr)
+ggscatter(my_data, x = "height_F", y = "height_D", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "Height of Father", ylab = "Height of Daugther")
+```
+
+
+
+## Results & discussions
+
+Correlation coefficient of given bivariate data is calculated using built-in function in `stats` package. The result is verified using direct calculation.
+
+The Pearson coefficient is `r resp2$estimate`. Also p-value is `r resp2$p.value ` >0.05. So the null hypothesis is rejected. So it is statistically reasonable to conclude that there is no significant positive correlation between the ages of the samples.

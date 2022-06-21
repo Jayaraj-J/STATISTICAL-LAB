@@ -1,0 +1,78 @@
+---
+title: "EXPERIMENT 6"
+author: "jayu1294@gmail.com"
+date: '2022-04-25'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aim
+
+1. To calculate probability mass density, probability distribution and quantiles using binomial distribution
+
+## Packages used and syntax of R methods
+
+Functions from `stat` package (which is loaded by default). 
+
+The probability mass at a point $x$ can be evaluated using the syntax:
+
+>`dbinom(x=x,size=n,p=p)`.
+
+The probability distribution $P(X\leq x)$ is calculated using the `pbinom()` function. Syntax is: 
+
+>`pbinom(x,size=n,p=p)`
+
+The quantile for probability $p$ can be evaluated using the `quantile()` function. Syntax is:
+
+>`qbinom(prob,size,p=p)`
+
+## Algorithm
+
+* Step 1: Assign the inputs for required distribution
+
+* Step 2: Calculate the required probabilities
+
+* Step 3: Report the results
+
+
+>*Case:* Find the mass function of a binomial distribution with  $n=20,p=0.4$. Also draw the graphs of the mass function and cumulative distribution function.
+
+## R code
+
+```{r}
+# create input parameters
+n=20
+p=0.4
+x=0:20
+```
+### Prbability distribution
+
+```{r}
+#calculating probability mass distribution and cumulative distribution
+pmval=dbinom(x,size=n,prob=p)
+pmval
+```
+
+## Cumulative probability distribution
+
+```{r}
+#calculating cumulative density
+cdval=pbinom(x,size=n,prob=p)
+cdval
+```
+### Plotting the `pmf` and `cdf`
+
+```{r}
+par(mfrow=c(1,2))
+plot(x,pmval,xlab="x",ylab="P(X=x)", main="The Binomial Distribution")
+plot(x,cdval,xlab="x",ylab=expression(P(X<=x)),main="Cumulative Distribution Function")
+
+```
+
+
+## Results & discussions
+
+The `pmf` and `cf` of the Binomial distribution for given input parameters are evaluated and create respective plots.

@@ -1,0 +1,99 @@
+---
+title: "Experiment 12: Correlation analysis- Spearman Rank Correlation Coefficient"
+author: "siju.swamy@saintgits.org"
+date: "4/23/2022"
+output:  html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aim
+
+1. To find the Spearman rank correlation coefficient of the given bivariate data
+
+## Packages used and syntax of R methods
+
+Functions from `stat` package (which is loaded by default). 
+
+**Pearson correlation (r)**, which measures a linear dependence between two variables (x and y). It’s also known as a parametric correlation test because it depends to the distribution of the data. It can be used only when x and y are from normal distribution. The plot of $y = f(x)$ is named the linear regression curve. The Spearman correlation method computes the correlation between the rank of x and the rank of y variables.
+
+$$ rho = \frac{\sum(x' - m_{x'})(y'_i - m_{y'})}{\sqrt{\sum(x' - m_{x'})^2 \sum(y' - m_{y'})^2}}$$
+
+
+where $x'=rank(x)$ and $y'=rank(y)$.
+
+Correlation coefficient can be computed using the functions `cor()` or `cor.test()`:
+
+**Syntax:**
+
+> `cor(x, y, method = c("pearson", "kendall", "spearman"))`
+ `cor.test(x, y, method=c("pearson", "kendall", "spearman"))`
+
+>Note: If the data contain missing values, use the following R code to handle missing values by case-wise deletion.
+
+`cor(x, y,  method = "pearson", use = "complete.obs")`
+
+## Algorithm
+
+* Step 1: Assign the inputs for required correlation model
+
+* Step 2: Calculate the correlation coefficient
+
+* Step 3: Interpret the result
+
+
+
+>*Case:*  The scores for nine students in history and algebra are as follows:
+
+$\begin{array}{|l|cccccccc|}\hline
+\text{History}:&35& 23& 47& 17& 10& 43& 9& 6&28\\\hline
+\text{Algebra}:&30& 33&45&23&8&49&12&4&31\\\hline
+\end{array}$
+
+Compute the Spearman rank correlation.
+
+
+## R code
+
+```{r}
+# loading data
+History=c(35,23,47,17,10,43,9,6,28)
+Algebra=c(30,33,45,23,8,49,12,4,31)
+```
+
+
+
+### Calculating correlation coefficient
+
+```{r}
+ress3=cor.test(History,Algebra,method='pearson')
+ress3
+```
+
+
+### Plotting the variables
+```{r}
+my_data=data.frame(History=History,Algebra=Algebra)
+head(my_data)
+```
+
+
+
+```{r Scattercor, fig.cap='Scatter plot with smooth fit curve', out.width='80%', fig.asp=.75, fig.align='center',warning=FALSE}
+
+library(ggpubr)
+ggscatter(my_data, x = "History", y = "Algebra", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "spearman",
+          xlab = "Marks in History", ylab = "Marks in Algebra")
+```
+
+
+
+## Results & discussions
+
+Correlation coefficient of given bivariate data is calculated using built-in function in `stats` package. 
+
+The Spearman rank correlation coefficient is `r ress3$estimate`. Also p-value is `r ress3$p.value ` >0.05. So the null hypothesis is rejected. So it is statistically reasonable to conclude that there is  significant positive correlation between the marks of the samples.

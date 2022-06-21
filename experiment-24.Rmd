@@ -1,0 +1,85 @@
+---
+title: 'Experiment 24: Perform Chi-Square test'
+author: "jayaraj.inmca2025@saintgits.org"
+date: '2022-06-09'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aim
+
+1.To perform $\chi^2$ test in R.
+
+## Packages used and syntax of R methods
+
+Functions from stats package (which is loaded by default).
+
+A Chi-Square Test of Independence is used to determine whether or not there is a significant association between two categorical variables.
+
+## Algorithm
+
+-   Step 1: Assign the inputs for required regression model
+
+-   Step 2: Apply the $\chi^2$ test on the given data-set.
+
+-   Step 3: Report the summary coefficients.
+
+-   Step 4: Interpret the model summary.
+
+case: A simple random sample of 500 voters and survey them on their political party preference.The following table shows the results of the survey:
+
+
+\begin{array}{lllll}
+\hline
+       & Rep    & Dem   & Ind   & Total \\ \hline
+Male   & 120.00 & 90.00 & 40.00 & 250   \\
+Female & 110.00 & 95.00 & 45.00 & 250   \\
+Total  & 230    & 185   & 85    & 500   \\ \hline
+\end{array}
+
+
+whether or not gender is associated with political party preference using appropriate statistical tool.
+
+## Hypothesis
+
+The hypothesis for $\chi^2$ test are:
+
+H~o~: There is no significant association between gender and party preference.
+
+H~1~: There is significant association between gender and party preference.
+
+## R code
+
+```{r}
+# create input parameters
+#create table
+data <- matrix(c(120, 90, 40, 110, 95, 45), ncol=3, byrow=TRUE)
+colnames(data) <- c("Rep","Dem","Ind")
+rownames(data) <- c("Male","Female")
+data <- as.table(data)
+
+```
+
+### Checking independence
+
+perform the Chi-Square Test of Independence using the chisq.test() function:
+
+```{r}
+reschi=chisq.test(data)
+```
+
+### Model summary
+
+```{r}
+reschi
+```
+
+## Results & discussions
+
+Since the p-value (0.6492) of the test is not less than 0.05, we fail to reject the null hypothesis. This means we do not have sufficient evidence to say that there is an association between gender and political party preference.
+In other words, gender and political party preference are independent.
+
+

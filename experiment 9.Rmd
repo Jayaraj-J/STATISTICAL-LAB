@@ -1,0 +1,78 @@
+---
+title: "EXPERIMENT 9"
+author: "jayu1294@gmail.com"
+date: '2022-05-06'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aim
+
+1.  To fit a binomial distribution to the given data
+
+## Packages used and syntax of R methods
+
+Functions from `stat` package (which is loaded by default).
+
+Any observed distribution can be fitted to a theoretical distribution using the formula $N\times p(X=x)$ , where $N$ is the pdf of the target distribution.
+
+## Algorithm
+
+-   Step 1: Assign the inputs for required fitting model
+
+-   Step 2: Calculate the theoretical frequencies
+
+-   Step 3: Visualize the observed distribution and theoretical distribution
+
+-   Step 4: Compare the difference in orginal and fitted distributions
+
+> *Case:* The following data shows the result of throwing 12 fair dice 4,096 times; a throw of 4,5, or 6 being called success.
+
+$\begin{array}{|l|ccccccccccccc|}\hline \text{Success(X)}:& 0 &1& 2& 3& 4 &5& 6& 7& 8& 9& 10& 11& 12\\\hline \text{Frequency(f)}:& 0 &7& 60& 198& 430& 731& 948& 847& 536& 257& 71& 11& 0\\\hline \end{array}$
+
+Fit a binomial distribution and find the expected frequencies. Compare the graphs of the observed frequency and theoretical frequency.
+
+## R code
+
+```{r}
+# create input parameters
+p=3/6
+Observed=c(0 ,7, 60,198,430,731,948,847,536, 257, 71,11, 0)
+success=seq(0,12,1)
+N=sum(Observed)
+```
+
+### Theoretical distribution
+
+```{r}
+#calculating theoretical frequencies
+TF=round(N*dbinom(success,size=12,prob=p),2)
+TF
+```
+
+### Plotting the observed and theoretical frequencies
+
+```{r}
+par(mfrow=c(1,2))
+plot(success,Observed,xlab="success",ylab="f(x)")
+title("Observed Distribution")
+plot(success,TF,xlab="success",ylab="TF")
+title("Fitted Binomial Distribution")
+
+```
+
+### Fitting table
+
+```{r}
+Fit=data.frame(Success=success,Observed,Fitted_binom=TF)
+knitr::kable(
+  Fit, caption = 'The binomial fitting table',
+  booktabs = TRUE)
+```
+
+## Results & discussions
+
+Given arbitrary distribution is mapped into the framework of a binomial distribution.

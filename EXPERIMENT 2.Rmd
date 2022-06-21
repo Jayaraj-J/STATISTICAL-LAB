@@ -1,0 +1,113 @@
+---
+title: "Experiment 2"
+author: "jayu1294@sgmail.com"
+date: '2022-04-18'
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## AIM
+
+##Algorithm
+
+**STEP 1:** create R-CODE chunks for coding
+
+**STEP 2:** Create Boxplot using built-in dataset
+
+**STEP 3:** Create Histogram using R
+
+**STEP 4:** Create a scatter plot using R
+
+**STEP 5:** Create a running chart/time series plot using R
+
+##R-CODE
+
+###BOXPLOT:
+
+The Youden-Beale Experiment. We have used this dataset in Chapter 2, Section 4, and in a few other places too. We need to compare here if the two virus extracts have a varying effect on the tobacco leaf or not. We have already read this dataset into R on more than one occasion. First, the boxplot is generated without the notches for `yb` data.frame using the boxplot function. The median for Preparation_1 certainly appears higher than for Preparation_2, see Part A of Figure 3.1. Thus, we are tempted to check whether the medians for the two preparations are significantly different with the notched boxplot. Now, the boxplot is generated to produce the notches with the option notch=TRUE. Appropriate headers for a figure are specified with the title function. Most importantly, we have used a powerful graphical technique of R through par, which is useful in setting graphical parameters. Here, mfrow indicates that we need a multi-row figure with one row and two columns(Tattar 2015).
+
+```{r}
+library(ACSWR)
+data(yb)
+par(mfrow=c(1,2))
+boxplot(yb)
+title("A: Boxplot for Youden-Beale Data")
+boxplot(yb,notch=TRUE)
+title("B: Notched Boxplots Now")
+```
+```{r}
+summary(yb$Preparation_1)
+```
+```{r}
+summary(yb$Preparation_2)
+```
+###HISTOGRAM:
+
+The histogram was invented by the eminent statistician Karl Pearson and is one of the earliest types of graphical display. It goes without saying that its origin is earlier than EDA, at least the EDA envisioned by Tukey, and yet it is considered by many EDA experts to be a very useful graphical technique, and makes it to the list of one of the very useful practices of EDA. The basic idea is to plot a bar over an interval proportional to the frequency of the observations that lie in that interval. If the sample size is moderately good in some sense and the sample is a true representation of a population, the histogram reveals the shape of the true underlying uncertainty curve. Though histograms are plotted as two-dimensional, they are essentially one-dimensional plots in the sense that the shape of the uncertainty curve is revealed without even looking at the range of the x-axis. Furthermore, the Pareto chart, stem-and-leaf plot, and a few others may be shown as special cases of the histogram.We begin with a “cooked” dataset for understanding a range of uncertainty curves.
+
+Understanding Histogram of Various Uncertainty Curves. In the dataset sample, we have data from five different probability distributions. Towards understanding the plausible distribution of the samples, we plot the histogram and see how useful it is.
+
+```{r}
+data(sample)
+layout(matrix(c(1,1,2,2,3,3,0,4,4,5,5,0), nrow=2, ncol=6, byrow=TRUE),respect=FALSE)
+#matrix(c(1,1,2,2,3,3,0,4,4,5,5,0), nrow=2, ncol=6, byrow=TRUE)
+hist(sample[,1],main="Histogram of Sample 1",xlab="sample1",  ylab="frequency")
+hist(sample[,2],main="Histogram of Sample 2",xlab="sample2", ylab="frequency")
+hist(sample[,3],main="Histogram of Sample 3",xlab="sample3", ylab="frequency")
+hist(sample[,4],main="Histogram of Sample 4",xlab="sample4", ylab="frequency")
+hist(sample[,5],main="Histogram of Sample 5",xlab="sample5", ylab="frequency")
+```
+
+### HISTOGRAM EXTENSIONS:
+
+The histogram displays the frequencies over the intervals and for moderately large number of observations, it reflects the underlying probability distribution. The boxplot shows how evenly the data is distributed across the five important measures, although it cannot reveal the probability distribution in a better way than a boxplot. The boxplot helps in identifying the outliers in a more apparent way than the histogram. Hence, it would be very useful if we could bring together both these ideas in a closer way than look at them differently for outliers and probability distributions. An effective way of obtaining such a display is to place the boxplot along the x-axis of the histogram. This helps in clearly identifying outliers and also the appropriate probability distribution.
+
+The R package sfsmisc contains a function histBxp, which nicely places the boxplot along the x-axis of the histogram.
+
+Example: Understanding Histogram of Various Uncertainty Curves. The short program for this problem is given below.
+
+```{r}
+library(sfsmisc)
+par(mfrow=c(1,3))
+histBxp(sample$Sample_1,col="blue",boxcol="blue",xlab="x")
+histBxp(sample$Sample_2,col="grey",boxcol="grey",xlab="x")
+histBxp(sample$Sample_3,col="brown",boxcol="brown",xlab="x")
+title("Boxplot and Histogram Complementing",outer=TRUE,line=-1)
+```
+
+###PARETO CHART:
+
+The `Pareto chart` has been designed to address the implicit questions answered by the Pareto law. The common understanding of the Pareto law is that “majority resources” is consumed by a “minority user.” The most common of the percentages is the 80–20 rule, implying that 80% of the effects come from 20% of the causes. The Pareto law is also known as the law of vital few, or the 80–20 rule. The  Pareto chart gives very smart answers by completely answering how much is owned by how many. Montgomery (2005), page 148, has listed the Pareto chart as one of the seven major tools of Statistical Process Control.
+
+A Pareto chart is a bar graph. The lengths of the bars represent frequency or cost (time or money), and are arranged with longest bars on the left and the shortest to the right. In this way the chart visually depicts which situations are more significant. This cause analysis tool is considered one of the seven basic quality tools (Scrucca 2004).
+
+`WHEN TO USE A PARETO CHART`
+
+When analyzing data about the frequency of problems or causes in a process
+
+When there are many problems or causes and you want to focus on the most significant
+
+When analyzing broad causes by looking at their specific components
+
+When communicating with others about your data
+
+R did not have any function for this plot and neither was there any add-on package which would have helped the user until 2004. However, one R user posed this question to the “list” in 2001 and an expert on the software promptly prepared exhaustive codes over a period of about two weeks. The codes are available at <https://stat.ethz.ch/pipermail/r-help/2002- January/018406.html>. The Pareto chart can be plotted using pareto.chart from the R package qcc. We will use Wingate’s program and assume here that the reader has copied the codes from the web mentioned above and compiled it in the R session. The Pareto chart contains three axes on a two-dimensional plot only. Generally, causes/users are arranged along the horizontal axis and the frequencies of such categories are conveyed through a bar for each of them. The bars are arranged in a decreasing order of the frequency. The left-hand side of the vertical axis denotes the frequencies. The cumulative frequency curve along the causes are then simultaneously plotted with the right-hand side of the vertical axis giving the cumulative counts. Thus, at each cause we know precisely its frequency and also the total issues up to that point of time.
+
+```{r}
+library(qcc)
+## Package 'qcc' version 2.7
+## Type 'citation("qcc")' for citing this R package in publications.
+
+freq <- c(14,2,1,2,3,8,1)
+names(freq) <- c("Contamination","Corrosion","Doping", "Metallization", "Miscellaneous", "Oxide Effect","Silicon Effect")
+pareto.chart(freq)
+```
+
+##RESULTS AND DISCUSSIONS
+
+Various visualisation techniques for data analysis are implemented in R.

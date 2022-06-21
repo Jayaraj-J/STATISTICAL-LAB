@@ -1,0 +1,71 @@
+---
+title: 'EXPERIMENT 18: Perform the Z-test for single mean'
+author: "jayaraj.inmca2025@saintgits.org"
+date: '2022-05-30'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## AIM
+
+1.  To perform the Z- test for single mean.
+
+## PACKAGES USED AND SYNTAX OF R METHODS
+
+Use the Z. test() function from the BSDA package to perform one sample and two sample z-tests in R. This function uses the following basic syntax: 
+>Syntax: z.test(x,y,alternative='two.sided',mu=0,sigma.x=NULL, sigma.y=NULL,conf.level=.95)
+
+## ALGORITHM
+
+**STEP 1:** Assign the inputs and formulate the hypothesis.
+
+**STEP 2:** Write the large sample single mean test commands in code chunk.
+
+**STEP 3:** Report the results.
+
+**STEP 4:** Interpret the result and write thr conclusion.
+
+case: Suppose the IQ in a certain population in normally distributed with a mean of $\mu = 100$ and standard deviation of $\sigma = 15$. A scientist wants to know if a new medication affects IQ levels so she recruits 20 patients to use it for one month and records their IQ levels at the end of the month. The IQ score are : 88,92,94,96,97,97,97,99,99,105,109,109,109,110,112,112,113,114,115. Test whether the sample mean is different from 100.
+
+## HYPOTHESIS
+
+The hypothesis based on information given in the case are:
+
+>H~0~: $\mu = 100$ H~1~ : $\mu \neq 100$
+(two tailed test.)
+
+## R CODE
+
+```{r}
+# loading library
+library(BSDA)
+```
+
+## READING THE DATA
+
+```{r}
+#enter IQ levels for 20 patients
+data = c(88, 92, 94, 94, 96, 97, 97, 97, 99, 99, 105, 109, 109, 109, 110, 112, 112, 113, 114, 115)
+```
+
+## APPLY THE SINGLE MEAN TEST
+
+```{r}
+#perform one sample z-test
+ressm=z.test(data, mu=100, sigma.x=15,alternative="two.sided")
+```
+
+## THE TEST RESULT
+
+```{r}
+#call the test result
+ressm
+```
+
+## RESULTS AND DISCUSSIONS 
+
+The p-value of the test is 0.3632 , which is greater than the significance level alpha = 0.05. So the null hypothesis is rejected. We can conclude that the sample mean is different from 100.
+

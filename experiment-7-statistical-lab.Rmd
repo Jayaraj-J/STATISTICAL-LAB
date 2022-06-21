@@ -1,0 +1,77 @@
+---
+title: 'Experiment 7: Poisson Distribution'
+author: "jayu1294@gmail.com"
+date: "4/25/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aim
+
+1. To calculate probability mass density, probability distribution and quantiles using Poisson distribution
+
+## Packages used and syntax of R methods
+
+Functions from `stat` package (which is loaded by default). 
+
+The probability mass at a point $x$ can be evaluated using the syntax:
+
+>`dpois(x=x,lambda=l)`.
+
+The probability distribution $P(X\leq x)$ is calculated using the `ppois()` function. Syntax is: 
+
+>`pbinom(x,lambda=l)`
+
+The quantile for probability $p$ can be evaluated using the `qpois()` function. Syntax is:
+
+>`qpois(prob,lambda=l)`
+
+## Algorithm
+
+* Step 1: Assign the inputs for required distribution
+
+* Step 2: Calculate the required probabilities
+
+* Step 3: Report the results
+
+
+>*Case:* Given the data $n=50$, mean, $\lambda=25$, use appropriate function to find the mass function of a Poisson distribution. Also draw the graphs of the mass function and cumulative distribution function.
+
+## R code
+
+```{r}
+# create input parameters
+n <-50; l <- 25
+x=0:50
+```
+### Prbability distribution
+
+```{r}
+#calculating probability mass distribution and cumulative distribution
+pmval=dpois(x,lambda=l)
+pmval
+```
+
+### Cumulative probability distribution
+
+```{r}
+#calculating cumulative density
+cdval=ppois(x,lambda = l)
+cdval
+```
+### Plotting the `pmf` and `cdf`
+
+```{r}
+par(mfrow=c(1,2))
+plot(x,pmval,xlab="x",ylab="P(X=x)", main="The Poisson Distribution")
+plot(x,cdval,xlab="x",ylab=expression(P(X<=x)),main="Cumulative Distribution Function")
+
+```
+
+
+## Results & discussions
+
+The `pmf` and `cf` of the Poisson distribution for given input parameters are evaluated and create respective plots.

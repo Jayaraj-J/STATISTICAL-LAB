@@ -1,0 +1,71 @@
+---
+title: 'EXPERIMENT 19: Perform two sample Z-test in R'
+author: "jayaraj.inmca2025@saintgits.org"
+date: '2022-05-30'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## AIM
+
+1.To perform two sample z-test for.
+
+## PACKAGES USED AND SYNTAX OF R METHODS
+
+Use the Z. test() function from the BSDA package to perform one sample and two sample z-tests in R. This function uses the following basic syntax: 
+>Syntax: z.test(x,y,alternative='two.sided',mu=0,sigma.x=NULL, sigma.y=NULL,conf.level=.95)
+
+## ALGORITHM
+
+**STEP 1:** Assign the inputs and formulate the hypothesis.
+
+**STEP 2:** Write the large sample single mean test commands in code chunk.
+
+**STEP 3:** Report the results.
+
+**STEP 4:** Interpret the result and write thr conclusion.
+
+case: Suppose the IQ levels among individuals in two different cities are known to be normally distributed each with population standard deviations of 15. A scientist wants to know if the mean IQ level between individuals in city A and city B are different, so she selects a simple random sample of 20 individuals from each city and records their IQ levels. The IQ levels: city A: 82,84,85,89,91,92,94,99,99,105,109,109,109,110,112,112,113,114,114. city B: 90,91,91,91,95,95,99,99,108,109,109,114,115,116,117,117,128,129,130,133. Test the hypothesis at 5% significance level.
+
+## HYPOTHESIS
+
+The hypothesis based on information given in the case are:
+
+>H~0~: $\mu1 = \mu2$ H~1~ : $\mu \neq \mu2$ (two tailed test.)
+
+## R CODE
+
+```{r}
+# loading library
+library(BSDA)
+```
+
+## READING THE DATA
+
+```{r}
+#enter IQ levels for 20 patients
+cityA= c(82, 84, 85, 89, 91, 92, 94, 99, 99, 105, 109, 109, 109, 110, 112, 112, 113, 114, 114)
+cityB= c(90, 91, 91, 91, 95, 95, 99, 99, 108, 109, 109, 114, 115, 116, 117, 117, 128, 129, 130, 133)
+```
+
+## APPLY THE TWO MEAN TEST
+
+```{r}
+#perform one sample z-test
+restm=z.test(x=cityA, y=cityB, mu=0, sigma.x=15, sigma.y=15)
+```
+
+## THE TEST RESULT
+
+```{r}
+#call the test result
+restm
+```
+
+## RESULTS AND DISCUSSIONS 
+
+The p-value of the test is 0.08577 , which is greater than the hypothesis is rejected. We can conclude that the sample mean are significantly different.
+

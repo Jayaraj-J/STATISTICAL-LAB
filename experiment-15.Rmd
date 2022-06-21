@@ -1,0 +1,60 @@
+---
+title: 'EXPERIMENT 15: Compute confidence intervals for the mean when the standard
+  deviation is known.'
+author: "jayaraj.inmca2025@saintgits.org"
+date: '2022-05-23'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## AIM
+1. To compute confidence intervals for the mean of a given dataset.
+
+## PACKAGES USED AND SYNTAX OF R METHODS
+
+Functions from stats packages (which is loaded by default) is used.
+
+## ALGORITHM
+
+**STEP 1:** Assign the inputs.
+
+**STEP 2:** Find the mean, variance and S.E.
+
+**STEP 3:** Calculate a 95% confidence interval for mean using the formula $\bar{X}\pm1.96*S.E$.
+
+**STEP 4:** Return the confidence intervals(LCL and UCL).
+
+case: Calculate a 95% confidence interval for mean if $S.E=\frac{SD}{\sqrt{n}}$.
+
+## R CODE
+
+# Create input parameters
+```{r}
+xbar<-12
+stddev<-3
+n<-30
+```
+
+# Calculating 95% confidence interval for the mean
+
+```{r}
+S.E=stddev/sqrt(n)
+error<-qnorm(0.975)*S.E
+lower_bound<-xbar - error
+upper_bound<- xbar + error
+```
+
+# Displaying the LCL and UCL
+```{r}
+lower_bound
+```
+```{r}
+upper_bound
+```
+
+## RESULTS AND DISCUSSIONS
+
+The 95% confidence interval for mean is calculated as (10.9264835, 13.0735165).

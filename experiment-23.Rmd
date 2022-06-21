@@ -1,0 +1,69 @@
+---
+title: 'EXPERIMENT 23: Perform paired F-test in R'
+author: "jayaraj.inmca2025@saintgits.org"
+date: '2022-06-06'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aim
+
+1.  To perform the paired F-test in R.
+
+## Packages used and syntax of R methods
+
+An F-test is used to test whether two population variances are equal. To perform a paired F-test in R, we can use the function var.test() with one of the following syntax:
+
+> Method 1: var.test(x, y, alternative = "two.sided")
+
+> Method 2: var.test(values ~ groups, data, alternative = "two.sided")
+
+## Algorithm
+
+-   STEP 1: Assign the inputs and formulate the hypothesis.
+
+-   STEP 2: Write the paired F-test commands in the code chunk.
+
+-   STEP 3: Report the result.
+
+-   STEP 4: Interpret the result and write the conclusion.
+
+*Case:* Suppose we want to know whether a certain study program significantly impacts student. performance on a particular exam. To test this, we have 20 students in a class take a pre-test. Then, we have each of the students participate in the study program each day for two weeks. Then, the students retake a test of similar difficulty. Pre-test: 85, 85, 78, 78, 92, 94, 91, 85, 72, 97, 84, 95, 99, 80, 90, 88, 95, 90, 96, 89. Post test: 84, 88, 88, 90, 92, 93, 91, 85, 80, 93, 97, 100, 93, 91, 90, 87, 94, 83, 92, 95. Find out if there is a significant difference in the mean scores between a pre-test and a post-test for 20 students. Test the hypothesis at 5% significance level.
+
+## Hypothesis
+
+The hypothesis based on information in the case are:
+
+$H_0: \sigma^2_1=\sigma^2_2$ $H_1: \sigma^2_1\neq\sigma^2_2$ (two tailed test)
+
+## R code
+
+### Reading the data
+
+```{r}
+#enter pre and post test score for 20 students.
+Pretest = c(85, 85, 78, 78, 92, 94, 91, 85, 72, 97, 84, 95, 99, 80, 90, 88, 95, 90, 96, 89)
+
+Posttest = c(84, 88, 88, 90, 92, 93, 91, 85, 80, 93, 97, 100, 93, 91, 90, 87, 94, 83, 92, 95)
+```
+
+### Apply the two mean test
+
+```{r}
+#perform paired t-test
+resF=var.test(`x`=Pretest, `y`=Posttest, `alternative` = "two.sided")
+```
+
+### The test result
+
+```{r}
+# call the test result
+resF
+```
+
+## Results & discussions
+
+Thus, since our p-value is greater than one significance level of 0.05 we will fail to reject the null hypothesis that the two groups have significantly significant means. In other words, we do not have sufficient evidence to say that the variability between the pre and post groups are statistically significantly different. This means the both the tests have same difficulty level.

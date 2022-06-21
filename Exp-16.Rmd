@@ -1,0 +1,56 @@
+---
+title: "Experiment-16 :Perform the Z test for single proportion"
+author: "prudhwi.inmca2025@saintgits.org"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aim
+
+To perform the Z- test for single proportion
+
+## Algorithm
+
+-   Step 1: Assign the inputs and formulated the hypothesis
+
+-   Step 2: Write the proportion test commands in code chunk
+
+-   Step 3: Report the results
+
+-   Step 4: Interpret the result and write calculation
+
+## Hypothesis
+
+The hypothesis based on information given in case are:
+
+H~0~ : p=0.5 H~1~ : p\>0.5
+
+## R code
+
+```{r}
+
+maleX=95
+pnot<-0.5
+samplesize=160
+
+```
+
+```{r}
+
+resprop=prop.test(x = maleX,n = samplesize,p = pnot,correct = FALSE,conf.level =0.95,alternative ="greater")
+
+```
+
+```{r}
+resprop
+
+```
+
+## Result & discussions 
+
+Here the p value is 0.008853-which is >0.5.Null hypothesis is rejected at 5% level.
+So it is statistically reasonable to include that cancer effects more males than females.

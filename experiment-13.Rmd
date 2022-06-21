@@ -1,0 +1,121 @@
+---
+title: 'Experiment 13: Ordinary Linear Regression using R'
+author: "siju.swamy@saintgits.org"
+date: "4/23/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aim
+
+1. To fit a linear regression to the given data
+
+## Packages used and syntax of R methods
+
+Functions from `stats` package (which is loaded by default). 
+
+**Regression assumptions**
+
+Linear regression makes several assumptions about the data, such as :
+
+1. Linearity of the data. The relationship between the predictor (x) and the outcome (y) is assumed to be linear.
+
+2. Normality of residuals. The residual errors are assumed to be normally distributed.
+
+3. Homogeneity of residuals variance. The residuals are assumed to have a constant variance (homoscedasticity)
+
+4. Independence of residuals error terms.
+
+One should check whether or not these assumptions hold true. Potential problems include:
+
+1. Non-linearity of the outcome - predictor relationships
+
+2. Heteroscedasticity: Non-constant variance of error terms.
+
+3. Presence of influential values in the data that can be:
+
+4. Outliers: extreme values in the outcome (y) variable
+
+5. High-leverage points: extreme values in the predictors (x) variable
+
+6. All these assumptions and potential problems can be checked by producing some diagnostic plots visualizing the residual errors.
+
+When  build a regression model, one need to assess the performance of the predictive model. In other words, we need to evaluate how well the model is in predicting the outcome of a new test data that have not been used to build the model.
+
+Two important metrics are commonly used to assess the performance of the predictive regression model:
+
+**Root Mean Squared Error**, which measures the model prediction error. It corresponds to the average difference between the observed known values of the outcome and the predicted value by the model. RMSE is computed as $RMSE = mean((observeds - predicteds)^2) %>% sqrt()$
+
+We read this as “y is modeled as beta1 ($b_1$) times x, plus a constant beta0 ($b_0$), plus an error term e.”
+
+When we have multiple predictor variables, the equation can be written as  $y = b_0 + b_1*x + e$, where: * $b_0$ is the intercept, $b_1, b_2,\ldots, b_n$ are the regression weights or coefficients associated with the predictors  $x_1, x_2, \ldots, x_n$.
+* $e$  is the error term (also known as the residual errors), the part of $y$ that can be explained by the regression model.
+
+
+## Algorithm
+
+* Step 1: Assign the inputs for required regression model
+
+* Step 2: Create the regression model using linear model- `lm()` function in R
+
+* Step 3: Report the summary coefficients
+
+* Step 4: Interpret the model summary
+
+
+>*Case:* Build a simple linear model to predict sales units based on the advertising budget spent on youtube. The sales data with corresponding expenditure on advertisment in Youtube is shown below:
+
+$\begin{array}{|l|ccccccc|}\hline \text{Sales(Y)}:& 2&4&6&9&12&34&45\\\hline \text{Add expense(Youtube)}:& 1&2&4&7&9&11&15\\\hline \end{array}$
+
+Fit a OLS model and predict the sales for an add expence ($\$$) $1000,2000,3500$. Also interpret the the linear model with suitable fit measures.
+
+## R code
+
+```{r}
+# create input parameters
+marketing=data.frame(sales=c(2,4,6,9,12,34,45),youtube=c(1,2,4,7,9,11,15))
+```
+
+### Plotting the data as a scatter diagram
+
+```{r}
+library(ggplot2)
+ggplot(marketing, aes(x = youtube, y = sales)) +
+  geom_point() +
+  stat_smooth()
+```
+
+### Checking Association
+
+```{r}
+cor.test(marketing$sales,marketing$youtube)
+```
+
+
+### Create the OLS model
+
+```{r}
+#fit a linear model
+model <- lm(sales ~ youtube, data = marketing)
+```
+
+### Model summary
+
+```{r}
+summary(model)$coef
+```
+### Prediction using fitted models
+
+```{r, message=FALSE}
+library(dplyr)
+newdata <- data.frame(youtube = c(1000,  2000, 3500))
+model %>% predict(newdata)
+```
+
+
+## Results & discussions
+
+From the given data, an OLR model is created using R function `lm()`. In our example, the fitted linear model is $$Sales=-5.363636+3.051948(Youtube)$$ it can be seen that p-value of the F-statistic is 0.002, which is highly significant. This means that, at least, one of the predictor variables is significantly related to the outcome variable. So it is statistically reasonable to conclude that advertisement in Youtube significantly impact the sales. Finally the predicted returns are $3046.584  6098.532 10676.455$ for respective investment $1000,2000$ and $3500$ respectively.

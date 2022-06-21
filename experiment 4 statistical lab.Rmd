@@ -1,0 +1,89 @@
+---
+title: "Experiment 4"
+author: "jayu1294@gmail.com"
+date: '2022-04-25'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aim
+
+1. To create the statistical summary of a data
+
+2. To study normality of the data
+
+## Packages used and syntax of R methods
+
+For statistical summary of a given dataset, the `rbase` package will be used. To calculate skewness and kurtosis of dataset, the `ACSWR` is used.
+
+>*Note:* The functions `skewness` and `kurtosis` from the `e1071` package are more generic functions. Another resouse is `moments` package. 
+
+## Algorithm
+* Step 1: Load the dataset
+
+* Step 2: Load necessary packages
+
+* Step 3: Calculate statistical summaries
+
+* Step 4: Calculate the `skewness` and `kurtosis` of the numerical data
+
+* Step 5: Report the results
+
+## R code
+
+```{r}
+#loading package
+library(ACSWR)
+#loading data
+data(yb)
+#view structure of data
+str(yb)
+
+```
+```{r}
+# creating statistical summary
+
+summary(yb)
+```
+```{r}
+range(yb$Preparation_1); range(yb$Preparation_2) # list out ranges of data
+
+```
+
+```{r}
+#skewness and kurtosis of preparation_1
+skewcoeff(yb$Preparation_1); kurtcoeff(yb$Preparation_1)
+```
+```{r}
+#skewness and kurtosis of preparation_2
+skewcoeff(yb$Preparation_2); kurtcoeff(yb$Preparation_2)
+```
+## problems
+1. a=1,4.8,12 and b=4,8,12,16 find(1). summary(2).
+skewness and kurtosis
+
+**SOLUTION**
+```{r}
+a=c(1,4,8,12)
+b=c(4,8,12,16)
+```
+```{r}
+summary(a)
+```
+```{r}
+summary(b)
+```
+```{r}
+skewcoeff(a);kurtcoeff(a)
+```
+```{r}
+skewcoeff(b);kurtcoeff(b)
+```
+
+
+## Results & discussions
+
+A distribution is normal then `mean=median=mode` and the skewness is 0 and kurtosis is 2. In this experiment statistical summaries of two variables are created. From the skewness and kurtosis measures, both the variables are positively skewed and `preparation_1` is lepto-kurtic and `preparation_2` is meso-kurtic. Based on the statistical summary and skewness and kurtosis measures, both the variables are different from a normal distribution.

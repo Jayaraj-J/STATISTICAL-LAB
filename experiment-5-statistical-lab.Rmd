@@ -1,0 +1,57 @@
+---
+title: "EXPERIMENT 5"
+author: "jayu1294@gmail.com"
+date: '2022-04-25'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aim
+
+1. To calculate Bayes posterior probability using Bayes theorem
+
+## Packages used and syntax of R methods
+
+Bayes posterior probability can be directly calculated using mathematical method or using the package `LaplacesDemon`.
+
+## Algorithm
+* Step 1: Load the package, prior probabilities and conditionals
+
+* Step 2: Calculate the Bayes posterior probability using the formula-$P(B_j|A)=\dfrac{P(A|B_j)P(B_j)}{\sum\limits_{j=1}^mP(A|B_j)P(B_j)}$
+
+* Step 3: Calculate the same prior probability using `LaplaceDemon` package
+
+* Step 4: Report the results
+
+>*Case:* Classical Problem from Hoel, Port, and Stone (1971). Suppose there are three tables with two drawers each. The first table has a gold coin in each of the drawers, the second table has a gold coin in one drawer and a silver coin in the other drawer, while the third table has silver coins in both of the drawers. A table is selected at random and a drawer is opened which shows a gold coin. 
+
+>*Observation:*The problem is to compute the probability of the other drawer also showing a gold coin. The Bayes formula can be easily implemented in an R program.
+
+## R code
+
+```{r}
+#loading data
+prob_GC <- c(1,1/2,0)
+priorprob_GC <- c(1/3,1/3,1/3)
+```
+
+```{r}
+#calculating postrior probability
+post_GC <- prob_GC*priorprob_GC
+post_GC/sum(post_GC)
+```
+
+```{r}
+# do the same using LaplacesDemon` package
+library(LaplacesDemon)
+BayesTheorem(prob_GC, priorprob_GC)
+
+```
+
+
+## Results & discussions
+
+The Bayes theorem is used to calculate posterior probability of the Mathematical model of the given case. Also the reslut is verified using the `LaplacesDemon` package.

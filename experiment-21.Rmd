@@ -1,0 +1,57 @@
+---
+title: 'EXPERIMENT 21: TWO SAMPLE t-test.'
+author: "jayaraj.inmca2025@saintgits.org"
+date: '2022-06-03'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## AIM
+
+1.  To implement two sample t-test in R.
+
+## PACKAGES USED AND SYNTAX OF R METHODS
+
+To perform one-sample t-test, the R function t.test() can be used as follow:
+
+> Syntax: 't.test(x, mu=0,alternative=c("greater,""less,""two.sided")'
+
+## ALGORITHM
+
+**Step 1:** Assign the inputs.
+
+**Step 2:** Apply t-test.
+
+**Step 3:** Interpret the result.
+
+*case:* A teacher wnts to compare the exam scores of 12 students who used an exam prep booklet to prepare for some exam vs. 12 students who did not. The following vectors show the exam scores for the students in each group:
+
+\begin{array}{|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+booklet:    & 90 & 85 & 88 & 89 & 94 & 91 & 79 & 83 & 87 & 88 & 91 & 90 \\ \hline
+no-booklet: & 67 & 90 & 71 & 95 & 88 & 83 & 72 & 66 & 75 & 86 & 93 & 84 \\ \hline
+\end{array}
+
+
+## R CODE
+
+```{r}
+#loading data
+booklet<- c(90, 85, 88, 89, 94, 91, 79, 83, 87, 88, 91, 90)
+no_booklet<-c(67, 90, 71, 95, 88, 83, 72, 66, 75, 86, 93, 84)
+```
+
+## APPLY ONE SAMPLE t test
+
+```{r}
+# perform Welch's t-test
+t.test(booklet, no_booklet, alternative = "two.sided")
+```
+## RESULTS AND DISCUSSIONS
+
+From the output we can see that the t test-statistic is 2.2361 and the corresponding p-value is 0.04171.
+
+Since this p-value is less than 0.05we can reject the null hypothesis and conclude that there is a statistically significant difference in mean exam scores between the two groups.

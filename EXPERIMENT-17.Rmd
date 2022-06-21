@@ -1,0 +1,65 @@
+---
+title: "EXPERIMENT-17: Perform the Z-test for two proportions"
+author: "prudhwi.inmca2025@saintgits.org"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## [Aim:]{.underline}
+
+To perform the Z-test for two proportions
+
+## [Packages used and syntax of R methods:]{.underline}
+
+Functions from `stats` package are used.Syntax is:
+
+> **`prop.test(x=c(A,B),n=c(n1,n2),p=NULL,alternative=c("two.sided","greater","less",correct=TRUE))`**
+
+## [Algorithm:]{.underline}
+
+-   Step 1: Assign the inputs and formulate the hypothesis
+
+-   Step 2: Write the two-proportions test commands in code chunk
+
+-   Step 3: Report the result.
+
+-   Step 4: Interpret the results and write the conclusion
+
+***Case:** Two groups with sample size 500 are selected to study the impact of smoking habit on the incidents of lung-cancer. Group A with lung cancer contains 490 smokers. While Group B of healthy individuals contains 400 smokers. Examine whether smoking causes cancer based on this data*
+
+## [Hypothesis:]{.underline}
+
+The Hypothesis based on information given in the case are:
+
+*H~0~* : *p~1~* = *p~2~ H~1~* : *p~1~* ≠ *p~2~* (right tailed test)
+
+## [R code:]{.underline}
+
+```{r}
+# create input parameters
+n1=500;n2=500
+cancersmoke=490
+healthysmoke=400
+```
+
+#### **Calculating 95% confidence interval for the mean**
+
+```{r}
+#apply single proportion test on the large sample
+resprop2=prop.test(x=c(cancersmoke,healthysmoke),n=c(n1,n2),conf.level = 0.95,alternative = "two.sided")
+```
+
+#### **The test result**
+
+```{r}
+# call the test results
+resprop2
+```
+
+## [Results & Discussions:]{.underline}
+
+The p-value of the test is $2.2e-16$,which is less than the signature level alpha=$0.05$. We can conclude that the proportion of smokers is significantly different in the two groups with a p-value=$2.2e-16$.More over the proportion of smokers in cancer patients is high($98%$).So it is reasonable to conclude that smoking causes cancer
